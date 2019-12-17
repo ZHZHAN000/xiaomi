@@ -2,7 +2,7 @@
   <div id="app">
     <!-- <img src="./assets/logo.png"> -->
     <router-view/>
-    <tabbar></tabbar>
+    <Tabbar></Tabbar>
   </div>
 </template>
 
@@ -10,13 +10,14 @@
 import Tabbar from "./components/Tabbar"
 import "./assets/js/remStyle.js"
 export default {
-  name: 'App'
+  name: 'App',
+  components:{
+    Tabbar,
+  },
 }
 </script>
 
 <style>
 @import url(./assets/css/reset.css);
-#app {
-  
-}
+
 </style>
