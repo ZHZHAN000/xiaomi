@@ -14,6 +14,9 @@ export default {
   components:{
     Tabbar,
   },
+  created(){
+    this.$router.push('/home')
+  }
 }
 </script>
 
