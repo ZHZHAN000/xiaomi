@@ -5,9 +5,10 @@ import App from './App'
 import router from './router'
 import axios from 'axios'
 import Router from 'vue-router'
-import vuex from 'vuex'
 import Vant from 'vant';
 import 'vant/lib/index.css';
+
+import store from './Store/index.js'
 
 Vue.use(Vant);
 
@@ -23,6 +24,7 @@ Router.prototype.push = function push(location) {
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
+  store,
   router,
   components: { App },
   template: '<App/>'
