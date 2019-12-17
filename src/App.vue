@@ -12,15 +12,11 @@ import "./assets/js/remStyle.js"
 export default {
   name: 'App',
   components:{
-<<<<<<< HEAD
-  	Tabbar
-=======
     Tabbar,
   },
-  created(){
-    this.$router.push('/home')
->>>>>>> f22d18481fa7b45478dd4ac156e28aaaa283c01d
-  }
+  // created(){
+  //   this.$router.push('/home')
+  // }
 }
 </script>
 
