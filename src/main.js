@@ -5,7 +5,7 @@ import App from './App'
 import router from './router'
 import axios from 'axios'
 import Router from 'vue-router'
-import vuex from 'vuex'
+import store from './Store/index.js'
 import Vant from 'vant';
 import 'vant/lib/index.css';
 
