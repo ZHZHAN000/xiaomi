@@ -2,7 +2,7 @@
   <div id="app">
     <!-- <img src="./assets/logo.png"> -->
     <router-view/>
-    <Tabbar></Tabbar>
+    <Tabbar v-show="$route.meta.flag"></Tabbar>
   </div>
 </template>
 

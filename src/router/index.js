@@ -7,6 +7,7 @@ import Home from '../components/Home'
 import Classify from '../components/Classify'
 import Cart from '../components/Cart'
 import Mine from '../components/Mine'
+import Hparticulars from '../components/Hparticulars'
 
 
 
@@ -14,23 +15,45 @@ export default new Router({
   routes: [
     {
       path: '/',
-      component: Home
+      component: Home,
+      meta:{
+        flag:true,
+      }
     },
     {
       path: '/home',
-      component: Home
+      component: Home,
+      meta:{
+        flag:true,
+      }
     },
     {
       path: '/classify',
-      component: Classify
+      component: Classify,
+      meta:{
+        flag:true,
+      }
     },
     {
       path: '/cart',
-      component: Cart
+      component: Cart,
+      meta:{
+        flag:true,
+      }
     },
     {
       path: '/mine',
-      component: Mine
+      component: Mine,
+      meta:{
+        flag:true,
+      }
+    },
+    {
+      path: '/hparticulars',
+      component: Hparticulars,
+      meta:{
+        flag:false,
+      }
     },
   ]
 })

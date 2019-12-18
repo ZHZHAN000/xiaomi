@@ -1,9 +1,11 @@
 <template>
     <div class="home">
+        <!-- 头部 -->
         <header>
             <div></div>
             <van-search placeholder="请输入搜索关键词" />
         </header>
+        <!-- 轮播图 -->
         <div class="tu">
             <van-swipe :autoplay="3000" class="swiper">
                 <van-swipe-item v-for="(image, index) in images" :key="index" >
@@ -11,6 +13,7 @@
                 </van-swipe-item>
             </van-swipe>
         </div>
+        <!-- nav -->
         <nav>
             <van-row  style="height:0.78rem">
                 <van-col span="5"><van-icon name="like-o" style="line-height:0.78rem" size="0.34rem"/></van-col>
@@ -27,8 +30,9 @@
                 <van-col span="5">icom5</van-col>
             </van-row>
         </nav>
+        <!-- 数据 -->
         <div class="neirong">
-            <div class="xiaomi" v-for="item in arr" :key="item.id">
+            <div class="xiaomi" v-for="item in arr" :key="item.id" @click="fn(item)">
                 <img :src="item.img" alt="">
                 <h2>{{ item.name}}</h2>
                 <p>{{ item.content }}</p>
@@ -42,6 +46,7 @@
 export default {
     data(){
         return{
+            // 图片路径
             images:[
                 "//i8.mifile.cn/v1/a1/d54b1a01-4657-80f7-abd4-cb3c5aab2341!720x360.webp",
                 "//i8.mifile.cn/v1/a1/fe58be6d-ebee-81dc-96cd-6521ae325155!720x360.webp",
@@ -51,9 +56,10 @@ export default {
         }
     },
     mounted(){
+        //axios请求数据
         this.$axios.get('https://shiyaming1994.github.io/mi/static/homeGoods.json?page=1')
         .then(res=>{
-            console.log(res)
+            // console.log(res)
             this.arr=res.data
         })
     },
@@ -65,6 +71,14 @@ export default {
                 showIndex: true,
                 loop: false,
                 startPosition: index
+            })
+        },
+        fn(item){
+            this.$router.push({
+                path:'/hparticulars',
+                query:{
+                    item:item,
+                }
             })
         }
     }
@@ -80,6 +94,7 @@ export default {
         position: fixed;
         left:0;
         top:0;
+        z-index: 1;
     }
     header>div{
         width:0.68rem;
