@@ -17,7 +17,8 @@
 			<section>
 				<div v-for="(item,index) of arr" :key="item.id">
 					<img :src="item.img" alt="">
-					<p>{{ item.name }}</p>
+					<h3>{{ item.name }}</h3>
+					<p>{{ item.content }}</p>
 				</div>
 			</section>
         </div>
@@ -103,7 +104,19 @@ export default {
 	}
 	.con_bottom>section>div{
 		width: 3.14rem;
-		background: red;
 		height: 4.6rem;
+	}
+	.con_bottom>section>div>img{
+		width: 100%;
+		height: 3.18rem;
+	}
+	.con_bottom>section>div>h3{
+		font-size: .28rem;
+		margin-bottom: .1rem;
+		margin-left: .18rem;
+	}
+	.con_bottom>section>div>p{
+		font-size: .18rem;
+		margin-left: .18rem;
 	}
 </style>
