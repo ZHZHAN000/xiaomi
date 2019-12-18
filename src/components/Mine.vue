@@ -6,7 +6,7 @@
 		</header>
 		<div class="order">
 			<p>我的订单</p>
-			<h2>全部订单></h2>
+			<h2>全部订单<van-icon name="arrow" /></h2>
 		</div>
 		<nav>
 			<van-grid :border="false" :column-num="3">
@@ -28,13 +28,13 @@
 			<li>
 				<van-icon name="like-o" color="#FF6600" size=".42rem"/>
 				<p class="p">会员中心
-					<span>></span>
+					<van-icon name="arrow" />
 				</p>
 			</li>
-			<li>
+			<li @click="address">
 				<van-icon name="location-o" color="#FF6600" size=".42rem"/>
 				<p>收货地址
-					<span>></span>
+					<van-icon name="arrow" />
 				</p>
 			</li>
 		</ul>
@@ -42,13 +42,13 @@
 			<li>
 				<van-icon name="coupon-o" color="#FF6600" size=".42rem"/>
 				<p class="p">我的优惠
-					<span>></span>
+					<van-icon name="arrow" />
 				</p>
 			</li>
 			<li>
 				<van-icon name="comment-o" color="#FF6600" size=".42rem"/>
 				<p>我的意见
-					<span>></span>
+					<van-icon name="arrow" />
 				</p>
 			</li>
 		</ul>
@@ -56,7 +56,7 @@
 			<li>
 				<van-icon name="clock-o" color="#FF6600" size=".42rem"/>
 				<p>浏览记录
-					<span>></span>
+					<van-icon name="arrow" />
 				</p>
 			</li>
 		</ul>
@@ -64,7 +64,7 @@
 			<li>
 				<van-icon name="qr" color="#FF6600" size=".42rem"/>
 				<p>我的名片
-					<span>></span>
+					<van-icon name="arrow" />
 				</p>
 			</li>
 		</ul>
@@ -76,6 +76,12 @@ export default {
     data(){
     	return{
 
+    	}
+    },
+    methods:{
+    	//点击收货地址跳转
+    	address(){
+    		this.$router.push('/address')
     	}
     }
 }
@@ -114,7 +120,7 @@ export default {
 		border-bottom: 1px solid #D9D9D9;
 	}
 	.order>p{
-		font-size: .28rem;
+		font-size: .26rem;
 		line-height: .85rem;
 		margin-left: .28rem;
 		float: left;
@@ -168,8 +174,9 @@ export default {
 		line-height: .88rem;
 		float: right;
 	}
-	ul>li>p>span{
+	ul>li>p>.van-icon{
 		float: right;
 		margin-right: .24rem;
+		line-height: .88rem;
 	}
 </style>
