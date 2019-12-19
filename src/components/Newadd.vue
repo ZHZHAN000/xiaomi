@@ -25,11 +25,11 @@ export default {
 			areaList:AreaList,
 			searchResult: [],
 			addList:{
-				name:"",
-				tel: "",
-				address: "",
-				addressDetail:"",
-				isDefault:""
+				/*"name":"",
+				"tel": "",
+				"address": "",
+				"addressDetail":"",
+				"isDefault":""*/
 			}
 		}
 	},
@@ -38,16 +38,7 @@ export default {
 			this.$router.push('/address')
 		},
 		onSave(content) {
-			localStorage.setItem("name",content.name);
-			localStorage.setItem("tel",content.tel);
-			localStorage.setItem("province",content.province);
-			localStorage.setItem("city",content.city);
-			localStorage.setItem("county",content.county);
-			localStorage.setItem("addressDetail",content.addressDetail);
-			localStorage.setItem("postalCode",content.postalCode);
-			localStorage.setItem("isDefault",content.isDefault);
-			this.$router.push('/address');
-			/*this.addList.name = content.name;
+			this.addList.name = content.name;
 			this.addList.tel = content.tel;
 			this.addList.address = content.province + content.city + content.county;
 			this.addList.addressDetail = content.addressDetail;
@@ -57,7 +48,7 @@ export default {
 				query:{
 					addList:this.addList
 				}
-			})*/
+			})
 		},
 		onChangeDetail(val) {
 			if (val) {

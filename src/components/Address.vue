@@ -3,21 +3,8 @@
 		<van-nav-bar title="收货地址" left-arrow @click-left="back">
 			<van-icon name="search" slot="right" />
 		</van-nav-bar>
-		<!-- <van-address-list v-model="chosenAddressId" :list="list" :disabled-list="disabledList" disabled-text="以下地址超出配送范围" @add="onAdd" @edit="onEdit"/> -->
 		<ul>
-			<!-- <li>
-				<div class="infor">
-					<h3>诸葛铁牛</h3>
-					<h2>13125896325</h2>
-					<h4>删除</h4>
-				</div>
-				<aside>
-					<h3>北京 北京市 顺义区</h3>
-					<h2>居馨花园1号楼，1单元，1201</h2>
-				</aside>
-				<van-icon name="arrow" size=".22rem" color="#999999"/>
-			</li> -->
-			<li id="li" v-for="(item,index) of list" :key="item.id">
+			<li v-for="(item,index) of list" :key="item.id">
 				<div class="infor">
 					<h3>{{ item.name }}</h3>
 					<h2>{{ item.tel }}</h2>
@@ -38,37 +25,36 @@
 	export default{
 		data(){
 			return{
-				// list:this.$route.query.addList
 				list:[
 					{
-					id: '2',
-					name: localStorage.getItem("name"),
-					tel: localStorage.getItem("tel"),
-					address: localStorage.getItem("province") + " " + localStorage.getItem("city") + " " + localStorage.getItem("county"),
-					addressDetail: localStorage.getItem("addressDetail"),
-					isDefault:localStorage.getItem("isDefault")
-					},
-					/*{
-					id: '2',
-					name: this.$route.query.addList.name,
-					tel: this.$route.query.addList.tel,
-					address: this.$route.query.addList.address,
-					addressDetail: this.$route.query.addList.addressDetail,
-					isDefault:this.$route.query.addList.isDefault
-					}*/
+					id: '1',
+					name: "诸葛铁牛",
+					tel: "13125896325",
+					address: "北京 北京市 顺义区",
+					addressDetail: "居馨花园1号楼，1单元，1201",
+					isDefault:false
+					}
 				]
 			}
 		},
 		mounted(){
-			console.log(this.list)
-			var tel = localStorage.getItem("tel");
-			tel = "" + tel;
-			// replace()方法在字符串中用一些字符替换另一些字符，或替换一个与正则表达式匹配的子串。
-			var tel1 = tel.replace(tel.substring(3,7), "****");
-			this.list[0].tel = tel1;
-			console.log(this.list[0].tel)
+			this.init()
 		},
 		methods:{
+			init(){
+				if (this.$route.query.addList == undefined) {
+					
+				}else{
+					var obj = {
+						name: this.$route.query.addList.name,
+						tel: this.$route.query.addList.tel,
+						address: this.$route.query.addList.address,
+						addressDetail: this.$route.query.addList.addressDetail,
+						isDefault: this.$route.query.addList.isDefault,
+					}
+					this.list.push(obj)
+				}
+			},
 			back(){
 				this.$router.push('/mine')
 			},
@@ -76,12 +62,9 @@
 				this.$router.push('/newadd')
 			},
 			del(id){
-				var ul = document.querySelector("ul");
-				var li = document.querySelector("#li");
-				console.log(id)
 				var f = confirm("是否确认删除");
 				if (f) {
-					ul.removeChild(li)
+					this.list.splice(id,1)
 				}
 			}
 		}
