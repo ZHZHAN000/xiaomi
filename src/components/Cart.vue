@@ -30,7 +30,7 @@
   			实时推荐你的心心念念
 			</van-divider>
 			<section>
-				<div v-for="(item,index) of arr" :key="item.id">
+				<div v-for="(item) of arr" :key="item.id">
 					<img :src="item.img" alt="">
 					<h3 class="van-ellipsis">{{ item.name }}</h3>
 					<p class="van-ellipsis">{{ item.content }}</p>

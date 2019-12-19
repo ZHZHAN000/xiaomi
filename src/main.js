@@ -8,8 +8,8 @@ import Router from 'vue-router'
 import Vant from 'vant';
 import 'vant/lib/index.css';
 
-import store from './Store/index.js'
 
+import store from './Store/index.js'
 Vue.use(Vant);
 
 Vue.config.productionTip = false
