@@ -5,10 +5,10 @@
 	</van-nav-bar>
 	<div class="wrapper">
 		<ol>
-			<li v-for="(item,index) in items" class="" >{{item.text}}</li>
+			<li v-for="(item) in items" class="" :key="item.id">{{item.text}}</li>
 		</ol>
 		<div class="righe">
-			<div class="plate" v-for="(item,index) in items">
+			<div class="plate" v-for="(item) in items" :key="item.id">
 		    	<div>
 		    		<img src="../assets/img/分类_r1_c1.png" alt="">
 		    	</div>
