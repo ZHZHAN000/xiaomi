@@ -151,6 +151,7 @@ import "../assets/js/jquery-1.8.1.js"
     	position: absolute;
     	top:-0.18rem;
     	left: 0.34rem;
+    	font-size: 0.3rem;
     }
     .van-sidebar-item--select{
     	border:none;
