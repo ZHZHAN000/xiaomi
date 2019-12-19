@@ -15,9 +15,15 @@ export default {
   components:{
     Tabbar,
   },
+<<<<<<< HEAD
   // created(){
   //   this.$router.push('/home')
   // }
+=======
+  created(){
+    this.$router.push('/home')
+  }
+>>>>>>> zy/xiaomi
 }
 </script>
 
