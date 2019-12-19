@@ -13,13 +13,13 @@
         		<span @click="$router.push('/home')">去逛逛</span>
         	</section>
         	<div v-else>
-	        	<div class="con">
-	        		<img src="../assets/img/1.jpg" alt="">
+	        	<div class="con" v-for="(item,index) in conarr">
+	        		<img :src="item.img" alt="">
 	        		<div>
-	        			<h4>小米8屏幕</h4>
-	        			<p>￥7999</p>
-	        			<van-stepper v-model="value" />
-	        			<van-icon name="delete" size=".4rem"/>
+	        			<h4>{{ item.name }}</h4>
+	        			<p>￥{{ item.price }}</p>
+	        			<van-stepper v-model="value" @plus="ar" @minus="ar"/>
+	        			<van-icon name="delete" size=".4rem" @click="del(index)"/>
 	        		</div>
 	        	</div>
         	</div>
@@ -38,10 +38,10 @@
 				</div>
 			</section>
         </div>
-        <footer v-if="footerFlag===0">
+        <footer v-if="cartFlag!=0">
         	<div>
-        		<p>共4件 金额：</p>
-        		<p><span>546546</span>元</p>
+        		<p>共{{ con }}件 金额：</p>
+        		<p><span>{{ money }}</span>元</p>
         	</div>
         	<p class="con">继续购物</p>
         	<p class="right">去结算</p>
@@ -54,27 +54,54 @@ export default {
 	data(){
 		return{
 			arr:[],
+			conarr:[],
 			cartFlag:0,
-			footerFlag:1,
-			value:4
+			value:4,
+			con:0,
+			money:0
 		}
 	},
     methods:{
     	// 回首页
     	gotoHome(){
     		this.$router.push('/home')
+    	},
+    	ar(){
+    		this.money=this.value*this.conarr[0].price
+    	},
+    	// 删除
+    	del(i){
+    		this.conarr.splice(i,1)
+    		console.log(this.conarr.length)
+    		if(this.conarr.length==0){
+    			this.cartFlag=0
+    		}
     	}
     },
     mounted(){
+    	// 接受参数
+    	console.log(this.$route.query.item)
+    	if(this.$route.query.item==undefined){
+			
+    	}else{
+    		this.conarr.push(this.$route.query.item)
+	    	this.value=this.$route.query.val
+	    	this.con=this.conarr.length
+	    	this.money=this.value*this.conarr[0].price
+    	}
+    	
+    	// 显示或隐藏底部
+    	if(this.conarr.length!=0){
+    		this.cartFlag=1
+    	}else{
+    		this.cartFlag=0
+    	}
+
     	// 推荐数据
     	this.$axios.get('https://shiyaming1994.github.io/mi/static/homeGoods.json?page=1')
     	.then(res=>{
     		this.arr=res.data
     	})
-    	// 显示底部，隐藏tabbar
-    	if(this.cartFlag==1){
-    		this.footerFlag=0
-    	}
     }
 }
 </script>
