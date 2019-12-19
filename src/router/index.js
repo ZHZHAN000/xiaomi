@@ -9,6 +9,7 @@ import Cart from '../components/Cart'
 import Mine from '../components/Mine'
 import Address from '../components/Address'
 import Newadd from '../components/Newadd'
+import Hparticulars from '../components/Hparticulars'
 
 
 
@@ -16,7 +17,10 @@ export default new Router({
   routes: [
     {
       path: '/',
-      component: Home
+      component: Home,
+      meta:{
+        flag:true,
+      }
     },
     {
       path: '/home',
@@ -58,6 +62,13 @@ export default new Router({
       component: Newadd,
       meta:{
         flag:false
+      }
+    },
+    {
+      path: '/hparticulars',
+      component: Hparticulars,
+      meta:{
+        flag:false,
       }
     },
   ]
