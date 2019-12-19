@@ -8,6 +8,7 @@
 		</van-tabbar>
 	</div>
 </template>
+
 <script type="text/javascript">
 	export default {
 		data() {
@@ -19,14 +20,15 @@
 </script>
 
 
-<style scoped>
-	.van-hairline--top-bottom{
-		height: .85rem;
-	}
-	div >>> .van-tabbar-item__text{
-		font-size: .16rem;
+<style type="text/css" scoped>
+	.van-tabbar{
+		height: .8rem;
 	}
 	div >>> .van-tabbar-item__icon{
 		font-size: .3rem;
+	}
+
+	div >>> .van-tabbar-item{
+		font-size: .2rem;
 	}
 </style>
