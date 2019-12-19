@@ -41,6 +41,7 @@
 		    	</ul>
 		    	<div>查看更多</div>
 		    </div>
+		    <img src="../assets/img/分类_r3_c3.png" alt="">
 		</div>
 	</div>
 	</div>
@@ -111,6 +112,11 @@ import "../assets/js/jquery-1.8.1.js"
 		overflow: scroll;
 		height:100vh;
 		margin-bottom: 0.8rem;
+	}
+	.righe>img{
+		width: 4.85rem;
+		height:2.8rem;
+		float: right;
 	}
 	 .plate{
 	 	width: 4.85rem;
