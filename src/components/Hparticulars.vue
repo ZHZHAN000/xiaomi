@@ -95,6 +95,7 @@ export default {
             content2:{},
             sub:0,
             sub1:0,
+
             num:''
         } 
     },
@@ -109,12 +110,14 @@ export default {
         },
         // 跳转到购物车页面
         fn2(){
+            // 判断购物车数量是否为0
             if(this.num>0){
                 this.$router.push({
                     path:'/cart',
                     query:{
-                        item:this.item,
-                        val:this.value
+                        // 获取从vuex存储到本地存储的数据和数量
+                        item:localStorage.getItem('item'),
+                        val:localStorage.getItem('val')
                     }
                 })
             }else{
@@ -131,24 +134,31 @@ export default {
         },
         addobj(){
             this.content=this.item
-            // console.log(this.content)
             this.show = true
         },
         // 加入购物车
         gotocart(){
             this.show=false
+            // 存入购买数量的值
             localStorage.setItem('n2',Number(this.value))
+            // 购物车数量赋值并储存
             this.num+=Number(this.value)
             localStorage.setItem('n',Number(this.num))
+            // 储存当前的数据和数量到vuex中
+            this.$store.dispatch('ADD_DATA',this.item)
+            this.$store.dispatch('ADD_CON',this.value)
+            // 将vuex中的数量和数量储存到本地存储
+            localStorage.setItem('item',JSON.stringify(this.$store.state.arr))
+            localStorage.setItem('val',this.$store.state.con)
         }
     },
     mounted(){
         // addobj()
         this.content=this.item
         this.content2=this.content.edition[this.sub]
-        // console.log(this.content.edition[this.sub])
+
+        // 将本地存储的数量赋值给购物车和数量
         this.num=Number(localStorage.getItem('n'))
-        // console.log(typeof this.num)
         this.value=localStorage.getItem('n2')
     }
 }

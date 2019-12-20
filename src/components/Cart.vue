@@ -18,7 +18,7 @@
 	        		<div>
 	        			<h4>{{ item.name }}</h4>
 	        			<p>￥{{ item.price }}</p>
-	        			<van-stepper v-model="value" @plus="ar" @minus="ar"/>
+	        			<van-stepper v-model="value" @plus="ar" @minus="js"/>
 	        			<van-icon name="delete" size=".4rem" @click="del(index)"/>
 	        		</div>
 	        	</div>
@@ -43,7 +43,7 @@
         		<p>共{{ con }}件 金额：</p>
         		<p><span>{{ money }}</span>元</p>
         	</div>
-        	<p class="con">继续购物</p>
+        	<p class="con" @click="$router.push('/home')">继续购物</p>
         	<p class="right">去结算</p>
         </footer>
     </div>
@@ -67,35 +67,50 @@ export default {
     		this.$router.push('/home')
     	},
     	ar(){
+    		this.money+=this.value*this.conarr[0].price
+    	},
+    	js(){
     		this.money=this.value*this.conarr[0].price
     	},
     	// 删除
     	del(i){
-    		this.conarr.splice(i,1)
-    		console.log(this.conarr.length)
+    		var f = confirm('确认要删除吗')
+    		if(f){
+    			this.conarr.splice(i,1)
+
+    		}
     		if(this.conarr.length==0){
     			this.cartFlag=0
     		}
+    	},
+    	// 初始化
+    	initialize(){
+	   		// 接受本地存储的数据，判断数据是否为空
+	    	// console.log(JSON.parse(localStorage.getItem('item')));
+	    	var obj = JSON.parse(localStorage.getItem('item'))
+	    	if(obj!=null){
+	    		// 给购物车页面赋值
+	    		for(var i =0 ;i<obj.length;i++){
+	    			this.conarr.push(obj[i])
+	    		}
+				// console.log(this.conarr)
+				// 单件商品的数量
+		    	this.value=localStorage.getItem('val')
+		    	this.money=this.value*this.conarr[0].price
+	    	}
+
+	    	// 显示或隐藏底部 1为显示
+	    	if(obj!=null){
+	    		this.cartFlag=1
+	    		this.con=this.conarr.length
+	   			this.money=this.value*this.conarr[0].price
+	    	}else{
+	    		this.cartFlag=0
+	    	}
     	}
     },
     mounted(){
-    	// 接受参数
-    	console.log(this.$route.query.item)
-    	if(this.$route.query.item==undefined){
-			
-    	}else{
-    		this.conarr.push(this.$route.query.item)
-	    	this.value=this.$route.query.val
-	    	this.con=this.conarr.length
-	    	this.money=this.value*this.conarr[0].price
-    	}
-    	
-    	// 显示或隐藏底部
-    	if(this.conarr.length!=0){
-    		this.cartFlag=1
-    	}else{
-    		this.cartFlag=0
-    	}
+   		this.initialize()
 
     	// 推荐数据
     	this.$axios.get('https://shiyaming1994.github.io/mi/static/homeGoods.json?page=1')
