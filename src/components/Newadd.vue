@@ -38,17 +38,12 @@ export default {
 			this.$router.push('/address')
 		},
 		onSave(content) {
-			this.addList.name = content.name;
-			this.addList.tel = content.tel;
-			this.addList.address = content.province + content.city + content.county;
-			this.addList.addressDetail = content.addressDetail;
-			this.addList.isDefault = content.isDefault;
-			this.$router.push({
-				path:"/address",
-				query:{
-					addList:this.addList
-				}
-			})
+			localStorage.setItem("name",content.name);
+			localStorage.setItem("tel",content.tel);
+			localStorage.setItem("address",content.province + content.city + content.county);
+			localStorage.setItem("addressDetail",content.addressDetail);
+			localStorage.setItem("isDefault",content.isDefault);
+			this.$router.push('/address')
 		},
 		onChangeDetail(val) {
 			if (val) {

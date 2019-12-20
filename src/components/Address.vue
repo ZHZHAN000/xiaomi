@@ -33,7 +33,15 @@
 					address: "北京 北京市 顺义区",
 					addressDetail: "居馨花园1号楼，1单元，1201",
 					isDefault:false
-					}
+					}/*,
+					{
+						id: "2",
+						name: localStorage.getItem("name"),
+						tel: localStorage.getItem("tel"),
+						address: localStorage.getItem("address"),
+						addressDetail: localStorage.getItem("addressDetail"),
+						isDefault:localStorage.getItem("isDefault")
+					}*/
 				]
 			}
 		},
@@ -42,15 +50,15 @@
 		},
 		methods:{
 			init(){
-				if (this.$route.query.addList == undefined) {
+				if (localStorage.getItem("name") == null) {
 					
 				}else{
 					var obj = {
-						name: this.$route.query.addList.name,
-						tel: this.$route.query.addList.tel,
-						address: this.$route.query.addList.address,
-						addressDetail: this.$route.query.addList.addressDetail,
-						isDefault: this.$route.query.addList.isDefault,
+						name: localStorage.getItem("name"),
+						tel: localStorage.getItem("tel"),
+						address: localStorage.getItem("address"),
+						addressDetail: localStorage.getItem("addressDetail"),
+						isDefault: localStorage.getItem("isDefault"),
 					}
 					this.list.push(obj)
 				}
