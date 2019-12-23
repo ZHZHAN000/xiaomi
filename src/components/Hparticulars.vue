@@ -41,7 +41,7 @@
         <!-- 底部加入购物车 -->
         <van-goods-action>
             <van-goods-action-icon icon="wap-home-o" text="首页" @click="fn1"/>
-            <van-goods-action-icon icon="cart-o" text="购物车" info="5" @click="fn2"/>
+            <van-goods-action-icon icon="cart-o" text="购物车" :info="num" @click="fn2"/>
             <van-goods-action-button type="warning" text="加入购物车" size="2.56rem"  @click="addobj"/>
             <van-goods-action-button type="danger" text="立即购买" />
         </van-goods-action>
@@ -75,7 +75,7 @@
                     <p>购买数量</p>
                     <van-stepper v-model="value" />
                 </div>
-                <div class="jia">加入购物车</div>
+                <div class="jia" @click="gotocart">加入购物车</div>
             </div>
         </div>
       </div> 
@@ -95,8 +95,8 @@ export default {
             content2:{},
             sub:0,
             sub1:0,
-            // colorFlag:0,
-            // colorFlag2:0
+
+            num:this.$store.getters.ADD_NUM
         } 
     },
     methods:{
@@ -110,7 +110,18 @@ export default {
         },
         // 跳转到购物车页面
         fn2(){
-            this.$router.push('/cart')
+            // 判断购物车数量是否为0
+            if(this.num>0){
+                this.$router.push({
+                    path:'/cart',
+                    query:{
+                        // 获取从vuex存储到本地存储的数据和数量
+                        item:localStorage.getItem('car')
+                    }
+                })
+            }else{
+                this.$router.push('/cart')
+            }
         },
         // 点击变颜色
         color(i){
@@ -118,20 +129,37 @@ export default {
             this.content2=this.content.edition[i]
         },
         color2(i){
-            this.sub1=i
+            this.sub1=i;
         },
         addobj(){
             this.content=this.item
-            // console.log(this.content)
             this.show = true
+        },
+        // 加入购物车
+        gotocart(){
+            this.show=false
+            // 存入购买数量的值
+            localStorage.setItem('n2',Number(this.value))
+            // 储存当前的数据和数量到vuex中
+            var carobj={
+                id:this.item.id,
+                img:this.item.img,
+                name:this.item.name,
+                price:this.item.price,
+                value:this.value
+            }
+            this.$store.dispatch('ADD_DATA',carobj)
+            this.num=this.$store.getters.ADD_NUM
         }
     },
     mounted(){
         // addobj()
         this.content=this.item
         this.content2=this.content.edition[this.sub]
-        // console.log(this.content.edition[this.sub])
 
+        // 将本地存储的数量赋值给购物车和数量
+        this.value=localStorage.getItem('n2')
+        this.num=this.$store.getters.ADD_NUM
     }
 }
 </script>

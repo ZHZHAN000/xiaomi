@@ -9,7 +9,7 @@
         <div class="tu">
             <van-swipe :autoplay="3000" class="swiper">
                 <van-swipe-item v-for="(image, index) in images" :key="index" >
-                    <img :src="image" @click="Preview_img(images,index)" />
+                    <img :src="image"/>
                 </van-swipe-item>
             </van-swipe>
         </div>
@@ -64,15 +64,6 @@ export default {
         })
     },
     methods: {
-        // 轮播图预览
-        Preview_img(images, index) {
-            ImagePreview({
-                images: images,//图片数组
-                showIndex: true,
-                loop: false,
-                startPosition: index
-            })
-        },
         fn(item){
             this.$router.push({
                 path:'/hparticulars',
