@@ -18,8 +18,8 @@
 	        		<div>
 	        			<h4>{{ item.name }}</h4>
 	        			<p>￥{{ item.price }}</p>
-	        			<van-stepper v-model="value" @plus="ar" @minus="js"/>
-	        			<van-icon name="delete" size=".4rem" @click="del(index)"/>
+	        			<van-stepper v-model="item.value" @plus="ar" @minus="js"/>
+	        			<van-icon name="delete" size=".4rem" @click="del(item.id,index)"/>
 	        		</div>
 	        	</div>
         	</div>
@@ -56,7 +56,6 @@ export default {
 			arr:[],
 			conarr:[],
 			cartFlag:0,
-			value:4,
 			con:0,
 			money:0
 		}
@@ -67,17 +66,24 @@ export default {
     		this.$router.push('/home')
     	},
     	ar(){
-    		this.money+=this.value*this.conarr[0].price
+    		var obj = JSON.parse(localStorage.getItem('car'))
+    		for(var i=0;i<obj.length;i++){
+	   			this.money+=Number(obj[i].price)*obj[i].value
+	   		}
+	   		
     	},
     	js(){
-    		this.money=this.value*this.conarr[0].price
+    		var obj = JSON.parse(localStorage.getItem('car'))
+    		for(var i=0;i<obj.length;i++){
+	   			this.money+=Number(obj[i].price)*obj[i].value
+	   		}
     	},
     	// 删除
-    	del(i){
+    	del(id,i){
     		var f = confirm('确认要删除吗')
     		if(f){
     			this.conarr.splice(i,1)
-
+    			this.$store.dispatch('REMOVE_ARR',id)
     		}
     		if(this.conarr.length==0){
     			this.cartFlag=0
@@ -86,24 +92,19 @@ export default {
     	// 初始化
     	initialize(){
 	   		// 接受本地存储的数据，判断数据是否为空
-	    	// console.log(JSON.parse(localStorage.getItem('item')));
-	    	var obj = JSON.parse(localStorage.getItem('item'))
+	    	var obj = JSON.parse(localStorage.getItem('car'))
 	    	if(obj!=null){
 	    		// 给购物车页面赋值
 	    		for(var i =0 ;i<obj.length;i++){
 	    			this.conarr.push(obj[i])
 	    		}
-				// console.log(this.conarr)
-				// 单件商品的数量
-		    	this.value=localStorage.getItem('val')
-		    	this.money=this.value*this.conarr[0].price
 	    	}
-
+	    	// console.log(obj)
 	    	// 显示或隐藏底部 1为显示
 	    	if(obj!=null){
 	    		this.cartFlag=1
 	    		this.con=this.conarr.length
-	   			this.money=this.value*this.conarr[0].price
+	    		this.money=this.$store.getters.ADD_MONEY
 	    	}else{
 	    		this.cartFlag=0
 	    	}

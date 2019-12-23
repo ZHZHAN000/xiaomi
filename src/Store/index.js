@@ -3,50 +3,53 @@ import Vuex from 'vuex'
 
 Vue.use(Vuex)
 
+
+var arr = JSON.parse(localStorage.getItem('car') || '[]')
 export default new Vuex.Store({
 	state:{
-		arr:[],
-		con:0
+		arr:arr
 	},
 	mutations:{
 
 	},
 	actions:{
 		ADD_DATA(context,val){
-			// console.log(val.id)
-			// console.log(context.state.arr[0])
-			// if(context.state.arr.includes(val.id)==false){
-			// 	context.state.arr.push(val)
-			// }else{
-			// 	console.log(2)
-			// }
-			// if(context.state.arr.length==0){
+			var flag = false
+			context.state.arr.some(item=>{
+				if(item.id==val.id){
+					item.value=Number(val.value)
+					flag=true
+					return true
+				}
+			})
+
+			if(!flag){
 				context.state.arr.push(val)
-			// }else{
-			// 	for(var i=0;i<context.state.arr.length;i++){
-			// 		console.log(context.state.arr[i].id.includes(val.id))
-			// 		var tf = context.state.arr[i].id.includes(val.id)
-			// 		if(tf!=true){
-			// 			context.state.arr.push(val)
-			// 		}else{
-			// 			break
-			// 		}
-			// 	}
-			// }
-			
-			// for(var i in context.state.arr){
-			// 	if(val.id!=context.state.arr[i]){
-			// 		context.state.arr.push(val)
-			// 	}
-			// }
-			// console.log(context.state.arr)
-			
+			}
+			localStorage.setItem('car',JSON.stringify(context.state.arr))
 		},
-		ADD_CON(context,val){
-			context.state.con=val
+		REMOVE_ARR(context,id){
+			context.state.arr.some((item,i)=>{
+				if(item.id==id)
+				context.state.arr.splice(i,1)
+			})
+			localStorage.setItem('car',JSON.stringify(context.state.arr))
 		}
 	},					
 	getters:{
-		
+		ADD_NUM(state){
+			var c = 0;
+			state.arr.forEach(item=>{
+				c+=Number(item.value)
+			})
+			return c
+		},
+		ADD_MONEY(state){
+			var money =0;
+			for(var i=0;i<state.arr.length;i++){
+	   			money+=Number(state.arr[i].price)*state.arr[i].value
+	   		}
+	   		return money
+		}
 	}
 })
